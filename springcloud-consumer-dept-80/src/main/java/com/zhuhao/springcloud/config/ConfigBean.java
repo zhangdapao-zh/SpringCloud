@@ -9,6 +9,9 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ConfigBean {
 
+
+    //IRule
+
     @Bean
     @LoadBalanced      //ribbon,这样就实现了负载均衡
     public RestTemplate restTemplate() {

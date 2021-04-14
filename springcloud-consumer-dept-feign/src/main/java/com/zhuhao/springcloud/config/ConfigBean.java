@@ -13,7 +13,7 @@ public class ConfigBean {
     //IRule
 
     @Bean
-    @LoadBalanced      //ribbon,这样就实现了负载均衡
+    //@LoadBalanced      //ribbon,这样就实现了负载均衡
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

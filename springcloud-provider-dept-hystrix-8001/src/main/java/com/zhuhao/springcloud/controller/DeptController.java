@@ -1,6 +1,7 @@
 package com.zhuhao.springcloud.controller;
 
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhuhao.springcloud.pojo.Dept;
 import com.zhuhao.springcloud.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +13,35 @@ import java.util.List;
 
 @RestController
 public class DeptController {
+
     @Autowired
     private DeptService deptService;
 
-    @Autowired
-    private DiscoveryClient client;
-
-    @PostMapping("/dept/add")
-    public boolean addDept(Dept dept) {
-        return deptService.addDept(dept);
-    }
 
     @GetMapping("/dept/get/{id}")
+    @HystrixCommand(fallbackMethod = "hystrixGetDept")
     public Dept getDept(@PathVariable("id") Long id) {
-        return deptService.queryById(id);
+        Dept dept = deptService.queryById(id);
+        if(dept == null){
+            throw new RuntimeException("id => " + id + ",不存在该用户，或者信息无法找到");
+        }
+        return dept;
     }
 
-    @GetMapping("/dept/list")
+    public Dept hystrixGetDept(@PathVariable("id") Long id) {
+        return new Dept()
+                .setDeptno(id)
+                .setDname("id => " + id + ",不存在该用户，或者信息无法找到")
+                .setDb_source("no this database in MySQL");
+    }
+
+    /*@GetMapping("/dept/list")
     public List<Dept> queryAll() {
         return deptService.queryAll();
-    }
+    }*/
 
 
-    @GetMapping("/dept/discovery")
+   /* @GetMapping("/dept/discovery")
     public Object discovery() {
 
         //获取微服务的列表清单
@@ -54,7 +61,7 @@ public class DeptController {
             );
         }
         return this.client;
-    }
+    }*/
 
 
 }

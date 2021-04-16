@@ -31,7 +31,7 @@ public class DeptController {
     public Dept hystrixGetDept(@PathVariable("id") Long id) {
         return new Dept()
                 .setDeptno(id)
-                .setDname("id => " + id + ",不存在该用户，或者信息无法找到")
+                .setDname("id => " + id + ",不存在该用户，或者信息无法找到------")
                 .setDb_source("no this database in MySQL");
     }
 

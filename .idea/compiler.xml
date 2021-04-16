@@ -12,6 +12,7 @@
         <module name="springcloud-api" />
         <module name="springcloud-consumer-dept-feign" />
         <module name="springcloud-consumer-dept-80" />
+        <module name="springcloud-cunsumer-hystrix-dashboard" />
         <module name="springcloud-provider-dept-8003" />
         <module name="springcloud-eureka-7003" />
         <module name="springcloud-eureka-7002" />

@@ -1,6 +1,10 @@
 server:
   port: 80
 
+# 开启服务降级
+feign:
+  hystrix:
+    enabled: true
 
 #Eureka配置
 eureka:
